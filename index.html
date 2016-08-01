@@ -1,185 +1,372 @@
 <!doctype html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>reveal.js</title>
+    <title>reveal.js</title>
 
-		<link rel="stylesheet" href="css/reveal.css">
-		<link rel="stylesheet" href="css/custom.css">
-		<link rel="stylesheet" href="css/theme/black.css">
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/custom.css">
+    <link rel="stylesheet" href="css/theme/black.css">
 
-		<!-- Theme used for syntax highlighting of code -->
-		<link rel="stylesheet" href="lib/css/zenburn.css">
-	</head>
-	<body>
-		<div class="reveal">
-			<div class="slides">
-				<section>
-					<h1>GPS</h1>
-					<aside class="notes">
-				    Nothing yet.
-				  </aside>
-				</section>
-				<section>
-					How does it work?
-					<aside class="notes">
-						In order to make this simple calculation, then, the GPS receiver has to know two things:
-							The location of at least three satellites above you
-							The distance between you and each of those satellites
-						high-frequency, low-power: ~1500 Mhz
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
 
-						calculates distance to satellites by timing the signals journey
+    <!-- TODO
 
-						Satellites broadcast ephemeris
+      * Fix up how it works section. Needs a better ordering.
+    -->
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section>
+          <h1>GPS</h1>
+          <aside class="notes">
+            Nothing yet.
+          </aside>
+        </section>
+        <section>
+          <h2>How does it work?</h2>
+        </section>
+        <section data-background="assets/images/magic.gif" data-background-size="contain">
+        </section>
+        <section>
+          <h3>Satellites</h3>
+          <aside class="notes">
+            In order to make this simple calculation, then, the GPS receiver has to know two things:
+              The location of at least three satellites above you
+              The distance between you and each of those satellites
 
-						The nominal GPS Operational Constellation consists of 24 satellites that orbit the earth in 12 hours. There are often more than 24 operational satellites as new ones are launched to replace older satellites. The satellite orbits repeat almost the same ground track (as the earth turns beneath them) once each day. The orbit altitude is such that the satellites repeat the same track and configuration over any point approximately each 24 hours (4 minutes earlier each day). There are six orbital planes (with nominally four SVs in each), equally spaced (60 degrees apart), and inclined at about fifty-five degrees with respect to the equatorial plane. This constellation provides the user with between five and eight SVs visible from any point on the earth.
-					</aside>
-				</section>
-				<section data-background="assets/images/magic.gif" data-background-size="contain">
-				</section>
-				<section>
-					<h3>Trilateration</h3>
-				</section>
-				<section>
-					<h3>Geometric Dilution of Precision</h3>
-					<ul>
-						<li class="fragment">HDOP (Latitude, Longitude)</li>
-						<li class="fragment">VDOP (Height)</li>
-						<li class="fragment">PDOP (3D Position)</li>
-						<li class="fragment">TDOP (Time)</li>
-					</ul>
-					<aside class="notes">
-						More spread out the satellites, the better the accuracy. Tight group of satellite results in greater uncertainty.
-					</aside>
-				</section>
-				<section>
-					<h2>Where am I?</h2>
-					<ul>
-						<li class="fragment">Latitude (North/South, )</li>
-						<li class="fragment">Longitude (East/West )</li>
-						<li class="fragment">Altitude</li>
-						<!-- Required in order to  -->
-						<li class="fragment">Reference Ellipsoids (WGS 84)</li>
-						<!-- NZ topo maps use  -->
-					</ul>
-					<aside class="notes">
-						GPS systems provide a location in terms of latitude, longitude, and height.
+            high-frequency, low-power: ~1500 Mhz
 
-						Reference elipsoid required in order to make sense of lat, lon
+            calculates distance to satellites by timing the signals journey
 
-						The shape of the Earth is not a sphere. Its shape is an ellipsoid, which looks like a sphere that has been squashed slightly. A geodetic datum is a mathematical model of that shape. Generally, a datum is not a perfect model.
-					</aside>
-				</section>
-				<!-- <section data-background="assets/images/nz-deformation-model-2000.png" data-background-size="contain"> -->
-				<section>
-					<h3>NZGD2000</h3>
-					<figure>
-					  <img src="assets/images/nz-deformation-model-2000.png" alt="An awesome picture">	
-					  <figcaption>Average plate tectonic movement relative to ITRF96 <a href="http://www.linz.govt.nz/data/geodetic-system/datums-projections-and-heights/geodetic-datums/new-zealand-geodetic-datum-2000-nzgd2000">LINZ</a></figcaption>
-					</figure>
-					<aside class="notes">
-						NZGD2000 uses reference ellipsoid GRS80
+            Satellites broadcast ephemeris
 
-						The datum is designed to provide constant unchanging coordinates for features even though New Zealand is continuously moving and deforming under the influence of the Australian and Pacific tectonic plates across which it lies.  To do this the datum itself is moving and deforming along with the New Zealand land mass - it is a "plate-fixed" datum.
+            The nominal GPS Operational Constellation consists of 24 satellites that orbit the earth in 12 hours. There are often more than 24 operational satellites as new ones are launched to replace older satellites. The satellite orbits repeat almost the same ground track (as the earth turns beneath them) once each day. The orbit altitude is such that the satellites repeat the same track and configuration over any point approximately each 24 hours (4 minutes earlier each day). There are six orbital planes (with nominally four SVs in each), equally spaced (60 degrees apart), and inclined at about fifty-five degrees with respect to the equatorial plane. This constellation provides the user with between five and eight SVs visible from any point on the earth.
+          </aside>
+        </section>
+        <section>
+          <h3>Trilateration</h3>
+          <aside class="notes">
+            Draw out 3 circles
+          </aside>
+        </section>
+        <section>
+          <h3>Geometric Dilution of Precision</h3>
+          <ul>
+            <li class="fragment">HDOP (Latitude, Longitude)</li>
+            <li class="fragment">VDOP (Height)</li>
+            <li class="fragment">PDOP (3D Position)</li>
+            <li class="fragment">TDOP (Time)</li>
+          </ul>
+          <aside class="notes">
+            Draw out good GDOP and bad GDOP
 
-						By contrast global datums, such as the WGS84 and International Terrestrial Reference Frame (ITRF) datums, are fixed to the earth as a whole. In these systems the coordinates of points in New Zealand are continuously changing.  For example points in Otago are moving in a north west direction by about 5cm per year.
+            GDOP is the size of the sphere of the unit vectors to the satellites. Large the sphere, the better the GDOP
+            The volume of the shape described by the unit-vectors from the receiver to the SVs used in a position fix is inversely proportional to GDOP.
 
-						Converting coordinates between NZGD2000 and global reference frames requires a time dependent transformation. This is the deformation model - it models the deformation of New Zealand since 1 January 2000 when NZGD2000 was aligned with the ITRF96 datum.
+            More spread out the satellites, the better the accuracy. Tight group of satellite results in greater uncertainty.
 
-						Global navigation satellite systems (GNSS) such as GPS generally provide coordinates in the WGS84 or ITRF reference frames.  These are often treated as equivalent to NZGD2000 coordinates without applying the deformation model.  This will be acceptable for some applications -  the error in doing so is up to 5cm per year since 2000 -  about 75cm in 2015.  
+            lt 1 is ideal, 2-5 is good, 10-20 is fair, gt 20 is Poor
 
-						Because the datum is deforming, NZGD2000 coordinates no longer reflect the true positions of points relative to one another.  To most accurately calculate quantities such as distances, bearings and areas from NZGD2000 coordinates the deformation should be removed from them first by converting to a global system. However the distortion is small and for most applications the deformation can be ignored - distances, bearings, and areas can be calculated directly from NZGD2000 coordinates.  The error in doing so is no more than 1 millimetre in a kilometre for each year since 2000 and is much less in most of the country.
+            Accuracy is 3-15 m for uncorrected GPS
+          </aside>
+        </section>
+        <section>
+          <h3>Interference Sources</h3>
+          <ul>
+            <li>Buildings</li>
+            <li>Forests</li>
+            <li>Solar flares</li>
+          </ul>
+        </section>
+        <section>
+          <h2>Where am I?</h2>
+          <section>
+            <ul>
+              <li class="fragment">Latitude (North/South, 90 -90)</li>
+              <li class="fragment">Longitude (East/West, 180 -180)</li>
+              <li class="fragment">Altitude</li>
+              <li class="fragment">Reference Ellipsoids (WGS 84)</li>
+            </ul>
+            <aside class="notes">
+              GPS systems provide a location in terms of latitude, longitude, and height.
 
-						The deformation model is periodically updated to account for deformation due to earthquakes and as our measurement of the deformation becomes more accurate.  Each version of the deformation is dated, and defines a new version of the NZGD2000 datum. 
+              Reference elipsoid required in order to make sense of lat, lon
 
-						Some earthquakes, such as those of the Canterbury earthquake sequence starting in 2010, have caused metres of movement.  Where this has happened we have updated the coordinates rather than  simply include the movement in the deformation model.  This is necessary as otherwise the coordinates will not be accurate enough for many applications.  The deformation model still includes the earthquake deformation, but it is applied in reverse to transform coordinates for dates before the earthquake.  
+              The shape of the Earth is not a sphere. Its shape is an ellipsoid, which looks like a sphere that has been squashed slightly. A geodetic datum is a mathematical model of that shape. Generally, a datum is not a perfect model.
+            </aside>
+          </section>
+          <section>
+            <iframe data-src="frames/google_maps.html" width="600" height="400"></iframe>
+          </section>
+        </section>
+        <section>
+          <h3>NZGD2000</h3>
+          <figure>
+            <img src="assets/images/nz-deformation-model-2000.png">  
+            <figcaption>Average plate tectonic movement relative to ITRF96 <a href="http://www.linz.govt.nz/data/geodetic-system/datums-projections-and-heights/geodetic-datums/new-zealand-geodetic-datum-2000-nzgd2000">LINZ</a></figcaption>
+          </figure>
+          <aside class="notes">
+            NZGD2000 uses reference ellipsoid GRS80
 
-						NZGD2000, like the global reference frames, is a geometric datum.  This means that heights are defined above a mathematically defined ellipsoid rather than above sea level. The difference is significant - in the south of New Zealand the ellipsoid is about 5m above sea level, whereas in the north it is about 40m below sea level.  Ellipsoidal heights can be converted to heights above sea level by using a geoid model (eg NZGeoid2016).
-					</aside>
-				</section>
-				<section>
-					<h3>Projections</h3>
-					<ul>
-						<li class="fragment">Mercator</li>
-						<li class="fragment"></li>
-						<li class="fragment"></li>
-					</ul>
-				</section>
-				<section>
-					<h3>Projection Distortions</h3>
-					<ul>
-						<li class="fragment">Conformality</li>
-						<li class="fragment">Distance</li>
-						<li class="fragment">Area</li>
-						<li class="fragment">Direction</li>
-					</ul>
-					<aside class="notes">
-						Conformality = are the shape of the map features accurate?
-						Direction = are the directions between points accurately represented
-					</aside>
-				</section>
-				<section>
-					<aside class="notes">
-						Topics:
-							GPS is a passive system, no need to transmit from phone. Hence can work with airplane mode. 
+            The datum is designed to provide constant unchanging coordinates for features even though New Zealand is continuously moving and deforming under the influence of the Australian and Pacific tectonic plates across which it lies.  To do this the datum itself is moving and deforming along with the New Zealand land mass - it is a "plate-fixed" datum.
 
-							On the previous page, we saw that a GPS receiver calculates the distance to GPS satellites by timing a signal's journey from satellite to receiver. As it turns out, this is a fairly elaborate process.
+            By contrast global datums, such as the WGS84 and International Terrestrial Reference Frame (ITRF) datums, are fixed to the earth as a whole. In these systems the coordinates of points in New Zealand are continuously changing.  For example points in Otago are moving in a north west direction by about 5cm per year.
 
-							At a particular time (let's say midnight), the satellite begins transmitting a long, digital pattern called a pseudo-random code. The receiver begins running the same digital pattern also exactly at midnight. When the satellite's signal reaches the receiver, its transmission of the pattern will lag a bit behind the receiver's playing of the pattern.
+            Converting coordinates between NZGD2000 and global reference frames requires a time dependent transformation. This is the deformation model - it models the deformation of New Zealand since 1 January 2000 when NZGD2000 was aligned with the ITRF96 datum.
 
-							The length of the delay is equal to the signal's travel time. The receiver multiplies this time by the speed of light to determine how far the signal traveled. Assuming the signal traveled in a straight line, this is the distance from receiver to satellite.
+            Global navigation satellite systems (GNSS) such as GPS generally provide coordinates in the WGS84 or ITRF reference frames.  These are often treated as equivalent to NZGD2000 coordinates without applying the deformation model.  This will be acceptable for some applications -  the error in doing so is up to 5cm per year since 2000 -  about 75cm in 2015.  
 
-							In order to make this measurement, the receiver and satellite both need clocks that can be synchronized down to the nanosecond. To make a satellite positioning system using only synchronized clocks, you would need to have atomic clocks not only on all the satellites, but also in the receiver itself. But atomic clocks cost somewhere between $50,000 and $100,000, which makes them a just a bit too expensive for everyday consumer use.
+            Because the datum is deforming, NZGD2000 coordinates no longer reflect the true positions of points relative to one another.  To most accurately calculate quantities such as distances, bearings and areas from NZGD2000 coordinates the deformation should be removed from them first by converting to a global system. However the distortion is small and for most applications the deformation can be ignored - distances, bearings, and areas can be calculated directly from NZGD2000 coordinates.  The error in doing so is no more than 1 millimetre in a kilometre for each year since 2000 and is much less in most of the country.
 
-							The Global Positioning System has a clever, effective solution to this problem. Every satellite contains an expensive atomic clock, but the receiver itself uses an ordinary quartz clock, which it constantly resets. In a nutshell, the receiver looks at incoming signals from four or more satellites and gauges its own inaccuracy. In other words, there is only one value for the "current time" that the receiver can use. The correct time value will cause all of the signals that the receiver is receiving to align at a single point in space. That time value is the time value held by the atomic clocks in all of the satellites. So the receiver sets its clock to that time value, and it then has the same time value that all the atomic clocks in all of the satellites have. The GPS receiver gets atomic clock accuracy "for free."
+            The deformation model is periodically updated to account for deformation due to earthquakes and as our measurement of the deformation becomes more accurate.  Each version of the deformation is dated, and defines a new version of the NZGD2000 datum. 
 
-							When you measure the distance to four located satellites, you can draw four spheres that all intersect at one point. Three spheres will intersect even if your numbers are way off, but four spheres will not intersect at one point if you've measured incorrectly. Since the receiver makes all its distance measurements using its own built-in clock, the distances will all be proportionally incorrect.
+            Some earthquakes, such as those of the Canterbury earthquake sequence starting in 2010, have caused metres of movement.  Where this has happened we have updated the coordinates rather than  simply include the movement in the deformation model.  This is necessary as otherwise the coordinates will not be accurate enough for many applications.  The deformation model still includes the earthquake deformation, but it is applied in reverse to transform coordinates for dates before the earthquake.  
 
-							The receiver can easily calculate the necessary adjustment that will cause the four spheres to intersect at one point. Based on this, it resets its clock to be in sync with the satellite's atomic clock. The receiver does this constantly whenever it's on, which means it is nearly as accurate as the expensive atomic clocks in the satellites.
+            NZGD2000, like the global reference frames, is a geometric datum.  This means that heights are defined above a mathematically defined ellipsoid rather than above sea level. The difference is significant - in the south of New Zealand the ellipsoid is about 5m above sea level, whereas in the north it is about 40m below sea level.  Ellipsoidal heights can be converted to heights above sea level by using a geoid model (eg NZGeoid2016).
+          </aside>
+        </section>
+        <section>
+          <h3>Projections</h3>
+          <ul>
+            <li class="fragment">Mercator</li>
+            <li class="fragment"></li>
+            <li class="fragment"></li>
+          </ul>
+        </section>
+        <section>
+          <h3>Projection Distortions</h3>
+          <ul>
+            <li class="fragment">Conformality</li>
+            <li class="fragment">Distance</li>
+            <li class="fragment">Area</li>
+            <li class="fragment">Direction</li>
+          </ul>
+          <aside class="notes">
+            Conformality = are the shape of the map features accurate?
+            Direction = are the directions between points accurately represented
+          </aside>
+        </section>
+        <section>
+          <h3>Visualization</h3>
+        </section>
+        <section>
+          <h3>Google Geocharts</h3>
+          <section></section>
+          <section>
+            <div height="500">
+              <pre><code data-trim data-noescape>
+google.charts.load('current', {'packages':['geochart']});
+google.charts.setOnLoadCallback(drawRegionsMap);
 
-							In order for the distance information to be of any use, the receiver also has to know where the satellites actually are. This isn't particularly difficult because the satellites travel in very high and predictable orbits. The GPS receiver simply stores an almanac that tells it where every satellite should be at any given time. Things like the pull of the moon and the sun do change the satellites' orbits very slightly, but the Department of Defense constantly monitors their exact positions and transmits any adjustments to all GPS receivers as part of the satellites' signals.
+function drawRegionsMap() {
+  var data = google.visualization.arrayToDataTable([
+    ['Country', 'Population Density (people per sq. km of land area)'],
+    ['Argentina',   15.8 ],
+    ['Germany',     233.5],
+    ['USA',         35.1 ],
+    ['RU',          8.7  ], # ISO-3166-1 two letter country codes
+    // ...
+  ]);
 
-							This system works pretty well, but inaccuracies do pop up. For one thing, this method assumes the radio signals will make their way through the atmosphere at a consistent speed (the speed of light). In fact, the Earth's atmosphere slows the electromagnetic energy down somewhat, particularly as it goes through the ionosphere and troposphere. The delay varies depending on where you are on Earth, which means it's difficult to accurately factor this into the distance calculations. Problems can also occur when radio signals bounce off large objects, such as skyscrapers, giving a receiver the impression that a satellite is farther away than it actually is. On top of all that, satellites sometimes just send out bad almanac data, misreporting their own position.
+  var options = {};
+  var chart_div = document.getElementById('google_geocharts_div');
+  var chart = new google.visualization.GeoChart(chart_div);
+  chart.draw(data, options);
+}
+              </code></pre>
+            </div>
+          </section>
+          <section>
+            <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+            <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+            <script type="text/javascript">
+              google.charts.load('current', {'packages':['geochart']});
+              google.charts.setOnLoadCallback(drawRegionsMap);
 
-							Differential GPS (DGPS) helps correct these errors. The basic idea is to gauge GPS inaccuracy at a stationary receiver station with a known location. Since the DGPS hardware at the station already knows its own position, it can easily calculate its receiver's inaccuracy. The station then broadcasts a radio signal to all DGPS-equipped receivers in the area, providing signal correction information for that area. In general, access to this correction information makes DGPS receivers much more accurate than ordinary receivers.
+              function drawRegionsMap() {
+                var data = google.visualization.arrayToDataTable([
+                  ['Country', 'Population Density (people per sq. km of land area)'],
+                  ['Argentina',   15.8],
+                  ['Germany',     233.5],
+                  ['USA',         35.1],
+                  ['Brazil',      24.8],
+                  ['Canada',      3.94],
+                  ['France',      122.0],
+                  ['Russia',          8.7],
+                  ['New Zealand', 17.4],
+                  ['Australia',   3.1],
+                  ['Indonesia',   142],
+                  ['India',       441],
+                  ['China',       146],
+                  ['United Kingdom', 269],
+                  ['South Africa', 45],
+                  ['Brazil',  24.9],
+                  ['Switzerland', 209.7],
+                  ['Czech Republic',  136.6],
+                  ['Italy', 206.7],
+                  ['Ireland', 67.4],
+                  ['Turkey',  102.2],
+                  ['Vietnam', 295.8],
+                ]);
 
-							The most essential function of a GPS receiver is to pick up the transmissions of at least four satellites and combine the information in those transmissions with information in an electronic almanac, all in order to figure out the receiver's position on Earth.
+                var options = {
+                  keepAspectRatio: true,
+                  height: 500,
+                  colorAxis: {colors: ['#FFF8DC', '#E9692C', '#e31b23']},
+                  datalessRegionColor: '#f5f5f5',
+                  backgroundColor: '#87CEFA'
+                };
+                var chart = new google.visualization.GeoChart(document.getElementById('google_geocharts_div'));
+                chart.draw(data, options);
+              }
+            </script>
+            <div id="google_geocharts_div" width="600" height="400"></div>
+          </section>
+        </section>
+        <section>
+          <h3>Terminology</h3>
+          <ul>
+            <li>Polyline</li>
+            <li>Polygon</li>
+            <li>Marker</li>
+            <li>Overlay</li>
+            <li>Tile source</li>
+            <li>Controls</li>
+          </ul>
+        </section>
+        <section>
+          <h3>Google Maps V3</h3>
+          <aside class="notes"></aside>
+        </section>
+        <section>
+          <h3>Leaflet</h3>
+          <section>
+            <ul>
+              <li class="fragment">Well documented</li>
+              <li class="fragment">Many plugins</li>
+              <li class="fragment">Work offline</li>
+            </ul>
+          </section>
+          <section>
+            
+          </section>
+          <section>
+            
+          </section>
+          <aside class="notes">
+          </aside>
+        </section>
+        <section>
+          <h3>Heatmaps</h3>
+          <figure>
+            <img src="assets/images/strava-heatmap.png" height="500">  
+            <figcaption><a href="https://www.strava.com/athletes/10503211/heatmaps/52195bfc#13/-41.30782/174.77381">Strava</a> running heatmap</figcaption>
+          </figure>
+          <aside class="notes">
+            Google Maps has an overlay to display heat maps
+          </aside>
+        </section>
+        <section>
+          <h3><a href="https://data.linz.govt.nz/">LINZ</a></h3>
+          <ul>
+            <li>Topographic maps</li>
+            <li>Aerial Photos</li>
+            <li>Many other datasets</li>
+          </ul>
+          <aside class="notes">
+            Creative Commons Attribution 3.0 New Zealand
+            Live viewing tools
+          </notes>
+        </section>
+        <section>
+          <h3>Alternatives</h3>
+          <ul class="fragment">
+            <li>Galileo</li>
+            <li>GLONASS</li>
+            <li>Beidou</li>
+          </ul>
+        </section>
+        <section>
+          <aside class="notes">
+            Topics:
+              GPS is a passive system, no need to transmit from phone. Hence can work with airplane mode. 
 
-							Once the receiver makes this calculation, it can tell you the latitude, longitude and altitude (or some similar measurement) of its current position. 
-					</aside>
-				</section>
+              On the previous page, we saw that a GPS receiver calculates the distance to GPS satellites by timing a signal's journey from satellite to receiver. As it turns out, this is a fairly elaborate process.
 
-				<section>
-					<aside class="notes">
-						Sources: 
+              At a particular time (let's say midnight), the satellite begins transmitting a long, digital pattern called a pseudo-random code. The receiver begins running the same digital pattern also exactly at midnight. When the satellite's signal reaches the receiver, its transmission of the pattern will lag a bit behind the receiver's playing of the pattern.
 
-						http://www.colorado.edu/geography/gcraft/notes/gps/gps_f.html
-						http://electronics.howstuffworks.com/gadgets/travel/gps1.htm
-						http://www.linz.govt.nz/data/geodetic-system/datums-projections-and-heights/geodetic-datums/new-zealand-geodetic-datum-2000-nzgd2000
-						https://www.maptoaster.com/maptoaster-topo-nz/articles/projection/datum-projection.html
-					</aside>
-				</section>
-			</div>
-		</div>
+              The length of the delay is equal to the signal's travel time. The receiver multiplies this time by the speed of light to determine how far the signal traveled. Assuming the signal traveled in a straight line, this is the distance from receiver to satellite.
 
-		<script src="lib/js/head.min.js"></script>
-		<script src="js/reveal.js"></script>
+              In order to make this measurement, the receiver and satellite both need clocks that can be synchronized down to the nanosecond. To make a satellite positioning system using only synchronized clocks, you would need to have atomic clocks not only on all the satellites, but also in the receiver itself. But atomic clocks cost somewhere between $50,000 and $100,000, which makes them a just a bit too expensive for everyday consumer use.
 
-		<script>
-			// More info https://github.com/hakimel/reveal.js#configuration
-			Reveal.initialize({
-				history: true,
+              The Global Positioning System has a clever, effective solution to this problem. Every satellite contains an expensive atomic clock, but the receiver itself uses an ordinary quartz clock, which it constantly resets. In a nutshell, the receiver looks at incoming signals from four or more satellites and gauges its own inaccuracy. In other words, there is only one value for the "current time" that the receiver can use. The correct time value will cause all of the signals that the receiver is receiving to align at a single point in space. That time value is the time value held by the atomic clocks in all of the satellites. So the receiver sets its clock to that time value, and it then has the same time value that all the atomic clocks in all of the satellites have. The GPS receiver gets atomic clock accuracy "for free."
 
-				// More info https://github.com/hakimel/reveal.js#dependencies
-				// dependencies: [
-				// 	{ src: 'plugin/markdown/marked.js' },
-				// 	{ src: 'plugin/markdown/markdown.js' },
-				// 	{ src: 'plugin/notes/notes.js', async: true },
-				// 	{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
-				// ]
-			});
-		</script>
-	</body>
+              When you measure the distance to four located satellites, you can draw four spheres that all intersect at one point. Three spheres will intersect even if your numbers are way off, but four spheres will not intersect at one point if you've measured incorrectly. Since the receiver makes all its distance measurements using its own built-in clock, the distances will all be proportionally incorrect.
+
+              The receiver can easily calculate the necessary adjustment that will cause the four spheres to intersect at one point. Based on this, it resets its clock to be in sync with the satellite's atomic clock. The receiver does this constantly whenever it's on, which means it is nearly as accurate as the expensive atomic clocks in the satellites.
+
+              In order for the distance information to be of any use, the receiver also has to know where the satellites actually are. This isn't particularly difficult because the satellites travel in very high and predictable orbits. The GPS receiver simply stores an almanac that tells it where every satellite should be at any given time. Things like the pull of the moon and the sun do change the satellites' orbits very slightly, but the Department of Defense constantly monitors their exact positions and transmits any adjustments to all GPS receivers as part of the satellites' signals.
+
+              This system works pretty well, but inaccuracies do pop up. For one thing, this method assumes the radio signals will make their way through the atmosphere at a consistent speed (the speed of light). In fact, the Earth's atmosphere slows the electromagnetic energy down somewhat, particularly as it goes through the ionosphere and troposphere. The delay varies depending on where you are on Earth, which means it's difficult to accurately factor this into the distance calculations. Problems can also occur when radio signals bounce off large objects, such as skyscrapers, giving a receiver the impression that a satellite is farther away than it actually is. On top of all that, satellites sometimes just send out bad almanac data, misreporting their own position.
+
+              Differential GPS (DGPS) helps correct these errors. The basic idea is to gauge GPS inaccuracy at a stationary receiver station with a known location. Since the DGPS hardware at the station already knows its own position, it can easily calculate its receiver's inaccuracy. The station then broadcasts a radio signal to all DGPS-equipped receivers in the area, providing signal correction information for that area. In general, access to this correction information makes DGPS receivers much more accurate than ordinary receivers.
+
+              The most essential function of a GPS receiver is to pick up the transmissions of at least four satellites and combine the information in those transmissions with information in an electronic almanac, all in order to figure out the receiver's position on Earth.
+
+              Once the receiver makes this calculation, it can tell you the latitude, longitude and altitude (or some similar measurement) of its current position. 
+          </aside>
+        </section>
+
+        <section>
+          <aside class="notes">
+            Sources: 
+
+            http://www.colorado.edu/geography/gcraft/notes/gps/gps_f.html
+            http://electronics.howstuffworks.com/gadgets/travel/gps1.htm
+            http://www.linz.govt.nz/data/geodetic-system/datums-projections-and-heights/geodetic-datums/new-zealand-geodetic-datum-2000-nzgd2000
+            https://www.maptoaster.com/maptoaster-topo-nz/articles/projection/datum-projection.html
+            https://en.wikipedia.org/wiki/Map_projection
+            http://techtitude.blogspot.co.nz/2010/10/triangulationtrilateration-in-gps.html
+          </aside>
+        </section>
+      </div>
+    </div>
+
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
+
+    <script>
+      // More info https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        history: true,
+        progress: false,
+        controls: false,
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 960,
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        // Bounds for smallest/largest possible scale to apply to content
+        minScale: 0.2,
+        maxScale: 1.5,
+
+        // More info https://github.com/hakimel/reveal.js#dependencies
+        dependencies: [
+          // { src: 'plugin/markdown/marked.js' },
+          // { src: 'plugin/markdown/markdown.js' },
+          { src: 'plugin/notes/notes.js', async: true },
+          { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+      });
+    </script>
+  </body>
 </html>

@@ -1,2 +1,7 @@
 .reveal figcaption {
 	font-size: 50%; }
+
+#google_maps_div {
+	width: 100%;
+	height: 100%;
+}
