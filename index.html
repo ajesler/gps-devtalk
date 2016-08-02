@@ -12,20 +12,12 @@
 
     <!-- Theme used for syntax highlighting of code -->
     <link rel="stylesheet" href="lib/css/zenburn.css">
-
-    <!-- TODO
-
-      * Fix up how it works section. Needs a better ordering.
-    -->
   </head>
   <body>
     <div class="reveal">
       <div class="slides">
         <section>
           <h1>GPS</h1>
-          <aside class="notes">
-            Nothing yet.
-          </aside>
         </section>
         <section>
           <h2>Why?</h2>
@@ -89,10 +81,14 @@
         <section>
           <h3>Geometric Dilution of Precision</h3>
           <ul>
-            <li class="fragment">HDOP (Latitude, Longitude)</li>
-            <li class="fragment">VDOP (Height)</li>
-            <li class="fragment">PDOP (3D Position)</li>
-            <li class="fragment">TDOP (Time)</li>
+            <li>
+              PDOP (3D Position)
+              <ul>
+                <li>HDOP (Latitude, Longitude)</li>
+                <li>VDOP (Height)</li>
+              </ul>
+            </li>
+            <li>TDOP (Time)</li>
           </ul>
           <aside class="notes">
             Draw out good GDOP and bad GDOP
@@ -112,12 +108,20 @@
           <ul>
             <li>Buildings</li>
             <li>Wet trees</li>
-            <li>Metal</li>
             <li>Solar flares</li>
           </ul>
           <aside class="notes">
             GPS signal is pretty weak, doesn't take a lot to block it.
+
+            A poor view of the sky will result in high GDOP
           </aside>
+        </section>
+        <section>
+          <h3>Increasing GPS Accuracy</h3>
+          <ul>
+            <li>Differential GPS</li>
+            <li>Post processing of signals</li>
+          </ul>
         </section>
         <section>
           <h2>Where am I?</h2>
@@ -138,6 +142,69 @@
           </section>
           <section>
             <iframe data-src="frames/google_maps.html" width="600" height="400"></iframe>
+          </section>
+        </section>
+        <section>
+          <h3>NZGD2000</h3>
+          <figure>
+            <img src="assets/images/nz-deformation-model-2000.png">  
+            <figcaption>Average plate tectonic movement relative to ITRF96 <a href="http://www.linz.govt.nz/data/geodetic-system/datums-projections-and-heights/geodetic-datums/new-zealand-geodetic-datum-2000-nzgd2000">LINZ</a></figcaption>
+          </figure>
+          <aside class="notes">
+            NZGD2000 uses reference ellipsoid GRS80
+
+            The datum is designed to provide constant unchanging coordinates for features even though New Zealand is continuously moving and deforming under the influence of the Australian and Pacific tectonic plates across which it lies.  To do this the datum itself is moving and deforming along with the New Zealand land mass - it is a "plate-fixed" datum.
+
+            By contrast global datums, such as the WGS84 and International Terrestrial Reference Frame (ITRF) datums, are fixed to the earth as a whole. In these systems the coordinates of points in New Zealand are continuously changing.  For example points in Otago are moving in a north west direction by about 5cm per year.
+
+            Converting coordinates between NZGD2000 and global reference frames requires a time dependent transformation. This is the deformation model - it models the deformation of New Zealand since 1 January 2000 when NZGD2000 was aligned with the ITRF96 datum.
+
+            Global navigation satellite systems (GNSS) such as GPS generally provide coordinates in the WGS84 or ITRF reference frames.  These are often treated as equivalent to NZGD2000 coordinates without applying the deformation model.  This will be acceptable for some applications -  the error in doing so is up to 5cm per year since 2000 -  about 75cm in 2015.  
+
+            Because the datum is deforming, NZGD2000 coordinates no longer reflect the true positions of points relative to one another.  To most accurately calculate quantities such as distances, bearings and areas from NZGD2000 coordinates the deformation should be removed from them first by converting to a global system. However the distortion is small and for most applications the deformation can be ignored - distances, bearings, and areas can be calculated directly from NZGD2000 coordinates.  The error in doing so is no more than 1 millimetre in a kilometre for each year since 2000 and is much less in most of the country.
+
+            The deformation model is periodically updated to account for deformation due to earthquakes and as our measurement of the deformation becomes more accurate.  Each version of the deformation is dated, and defines a new version of the NZGD2000 datum. 
+
+            Some earthquakes, such as those of the Canterbury earthquake sequence starting in 2010, have caused metres of movement.  Where this has happened we have updated the coordinates rather than  simply include the movement in the deformation model.  This is necessary as otherwise the coordinates will not be accurate enough for many applications.  The deformation model still includes the earthquake deformation, but it is applied in reverse to transform coordinates for dates before the earthquake.  
+
+            NZGD2000, like the global reference frames, is a geometric datum.  This means that heights are defined above a mathematically defined ellipsoid rather than above sea level. The difference is significant - in the south of New Zealand the ellipsoid is about 5m above sea level, whereas in the north it is about 40m below sea level.  Ellipsoidal heights can be converted to heights above sea level by using a geoid model (eg NZGeoid2016).
+
+            Australia has recently introduced a similar system.
+          </aside>
+        </section>
+        <section>
+          <h3>NMEA Sentences</h3>
+            <aside class="notes">
+              National Marine Electronics Association
+
+              http://aprs.gids.nl/nmea/
+            </aside>
+            <section></section>
+            <section>
+            <figure>
+              <img src="assets/images/ls23060_gps_chip.jpg" width="400" height="400">  
+              <figcaption><a href="https://www.sparkfun.com/products/8975">LS23060 GPS Receiver</a></figcaption>
+            </figure>
+          </section>
+            <section>
+              <div height="500">
+                <pre><code>
+  $GPRMC,185609.00,V,,,,,,,180413,,,N*71  
+  $GPGGA,185609.00,,,,,0,00,99.99,,,,,,*65  
+  $GPGSV,1,1,04,08,,,37,09,,,31,17,,,24,28,,,37*74  
+
+  $GPRMC,190314.00,A,4021.29921,S,17536.70998,E,0.524,322.83,180413,,,A*76
+  $GPGGA,190314.00,4021.29921,S,17536.70998,E,1,05,15.41,32.7,M,18.9,M,,*42  
+  $GPGSV,2,1,08,01,30,052,16,03,12,130,,08,81,203,37,09,22,226,28*73  
+  $GPGSV,2,2,08,17,15,321,31,19,34,132,,26,25,231,27,28,47,250,18*7F
+              </code></pre>
+            </div>
+          </section>
+          <section>
+            <figure>
+              <img src="assets/images/gps_satellite_visualiser.png">
+              <figcaption><a href="https://github.com/ajesler/gps-satellite-visualiser">GPS Satellite Visualiser</a></figcaption>
+            </figure>
           </section>
         </section>
         <section>
@@ -170,6 +237,7 @@
         </section>
         <section>
           <h3>Make mistakes</h3>
+          <section></section>
           <section>
             <h3><a href="http://arstechnica.com/cars/2016/05/death-by-gps/">Death by GPS</a></h3>
           </section>
@@ -187,34 +255,6 @@
               Result was move the default away from the farm to the center of a lake.
             </aside>
           </section>
-        </section>
-        <section>
-          <h3>NZGD2000</h3>
-          <figure>
-            <img src="assets/images/nz-deformation-model-2000.png">  
-            <figcaption>Average plate tectonic movement relative to ITRF96 <a href="http://www.linz.govt.nz/data/geodetic-system/datums-projections-and-heights/geodetic-datums/new-zealand-geodetic-datum-2000-nzgd2000">LINZ</a></figcaption>
-          </figure>
-          <aside class="notes">
-            NZGD2000 uses reference ellipsoid GRS80
-
-            The datum is designed to provide constant unchanging coordinates for features even though New Zealand is continuously moving and deforming under the influence of the Australian and Pacific tectonic plates across which it lies.  To do this the datum itself is moving and deforming along with the New Zealand land mass - it is a "plate-fixed" datum.
-
-            By contrast global datums, such as the WGS84 and International Terrestrial Reference Frame (ITRF) datums, are fixed to the earth as a whole. In these systems the coordinates of points in New Zealand are continuously changing.  For example points in Otago are moving in a north west direction by about 5cm per year.
-
-            Converting coordinates between NZGD2000 and global reference frames requires a time dependent transformation. This is the deformation model - it models the deformation of New Zealand since 1 January 2000 when NZGD2000 was aligned with the ITRF96 datum.
-
-            Global navigation satellite systems (GNSS) such as GPS generally provide coordinates in the WGS84 or ITRF reference frames.  These are often treated as equivalent to NZGD2000 coordinates without applying the deformation model.  This will be acceptable for some applications -  the error in doing so is up to 5cm per year since 2000 -  about 75cm in 2015.  
-
-            Because the datum is deforming, NZGD2000 coordinates no longer reflect the true positions of points relative to one another.  To most accurately calculate quantities such as distances, bearings and areas from NZGD2000 coordinates the deformation should be removed from them first by converting to a global system. However the distortion is small and for most applications the deformation can be ignored - distances, bearings, and areas can be calculated directly from NZGD2000 coordinates.  The error in doing so is no more than 1 millimetre in a kilometre for each year since 2000 and is much less in most of the country.
-
-            The deformation model is periodically updated to account for deformation due to earthquakes and as our measurement of the deformation becomes more accurate.  Each version of the deformation is dated, and defines a new version of the NZGD2000 datum. 
-
-            Some earthquakes, such as those of the Canterbury earthquake sequence starting in 2010, have caused metres of movement.  Where this has happened we have updated the coordinates rather than  simply include the movement in the deformation model.  This is necessary as otherwise the coordinates will not be accurate enough for many applications.  The deformation model still includes the earthquake deformation, but it is applied in reverse to transform coordinates for dates before the earthquake.  
-
-            NZGD2000, like the global reference frames, is a geometric datum.  This means that heights are defined above a mathematically defined ellipsoid rather than above sea level. The difference is significant - in the south of New Zealand the ellipsoid is about 5m above sea level, whereas in the north it is about 40m below sea level.  Ellipsoidal heights can be converted to heights above sea level by using a geoid model (eg NZGeoid2016).
-
-            Australia has recently introduced a similar system.
-          </aside>
         </section>
         <section>
           <h3>Projections</h3>
@@ -282,6 +322,9 @@
         </section>
         <section>
           <h3>Visualization</h3>
+          <aside class="notes">
+            Based on what I have used, not the total available.
+          </aside>
         </section>
         <section>
           <h3>Google Geocharts</h3>
@@ -370,6 +413,12 @@ function drawRegionsMap() {
         </section>
         <section>
           <h3>Google Maps V3</h3>
+          <section>
+            <iframe data-src="https://developers.google.com/maps/documentation/javascript/examples/full/map-simple" width="840" height="500"></iframe>
+          </section>
+          <section>
+            <iframe data-src="https://developers.google.com/maps/documentation/javascript/examples/full/layer-heatmap" width="840" height="500"></iframe>
+          </section>
           <aside class="notes">
             Can apply styles to the map, change how roads, rivers, etc are coloured.
 
@@ -382,19 +431,23 @@ function drawRegionsMap() {
           <h3>Leaflet</h3>
           <section>
             <ul>
-              <li class="fragment">Well documented</li>
+              <li class="fragment">"keep the core small, lightweight and simple"</li>
               <li class="fragment">Many plugins</li>
-              <li class="fragment">Work offline</li>
+              <li class="fragment">Works offline</li>
             </ul>
           </section>
           <section>
-            
+            <iframe data-src="http://leafletjs.com/examples/quick-start-example.html" width="500" height="500"></iframe>
           </section>
           <section>
-            
+            <iframe data-src="http://leafletjs.com/examples/choropleth-example.html" width="840" height="500"></iframe>
           </section>
           <aside class="notes">
+            Personal preference is Google Maps for business, Leaflet for experimenting
           </aside>
+        </section>
+        <section>
+          <h3>D3 ?</h3>
         </section>
         <section>
           <h3><a href="https://data.linz.govt.nz/">LINZ</a></h3>
@@ -415,8 +468,7 @@ function drawRegionsMap() {
             <li>GLONASS</li>
             <li>Beidou</li>
           </ul>
-        </section>
- -->        
+        </section> -->
         <section>
           <aside class="notes">
             Topics:
@@ -462,6 +514,16 @@ function drawRegionsMap() {
             https://github.com/blog/1528-there-s-a-map-for-that
 
             https://www.strava.com/athletes/10503211/heatmaps/52195bfc#13/-41.30782/174.77381
+          </aside>
+        </section>
+        <section>
+          <aside class="notes">
+            Further topics:
+
+            Analysing geographic data - geo postgres
+            Tile coordinate systems - quad trees
+            Clustering
+            Geo data formats
           </aside>
         </section>
       </div>
