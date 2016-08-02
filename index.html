@@ -28,12 +28,37 @@
           </aside>
         </section>
         <section>
+          <h2>Why?</h2>
+          <section></section>
+          <section>
+            <figure>
+                <img src="assets/images/spider.jpg">  
+                <figcaption><a href="http://www.spidertracks.com">Spider S3</a></figcaption>
+              </figure>
+          </section>
+          <section>
+            <figure>
+              <img src="assets/images/strava-heatmap.png" height="500">  
+              <figcaption><a href="https://www.strava.com/athletes/10503211/heatmaps/52195bfc#13/-41.30782/174.77381">Strava</a> running heatmap</figcaption>
+            </figure>
+            <aside class="notes">
+              I think maps a a high impact visualisation tool. Easy to relate to?
+            </aside>
+          </section>
+        </section>
+        <section>
           <h2>How does it work?</h2>
         </section>
         <section data-background="assets/images/magic.gif" data-background-size="contain">
         </section>
         <section>
           <h3>Satellites</h3>
+          <ul>
+            <li>GPS date time</li>
+            <li>Pseudorandom binary sequence</li>
+            <li>Ephemeris</li>
+            <li>Almanac</li>
+          </ul>
           <aside class="notes">
             In order to make this simple calculation, then, the GPS receiver has to know two things:
               The location of at least three satellites above you
@@ -43,15 +68,22 @@
 
             calculates distance to satellites by timing the signals journey
 
-            Satellites broadcast ephemeris
+            Satellites broadcast ephemeris which is orbital data. Only valid for a few hours.
+
+            ~20,000 km orbit altitude
 
             The nominal GPS Operational Constellation consists of 24 satellites that orbit the earth in 12 hours. There are often more than 24 operational satellites as new ones are launched to replace older satellites. The satellite orbits repeat almost the same ground track (as the earth turns beneath them) once each day. The orbit altitude is such that the satellites repeat the same track and configuration over any point approximately each 24 hours (4 minutes earlier each day). There are six orbital planes (with nominally four SVs in each), equally spaced (60 degrees apart), and inclined at about fifty-five degrees with respect to the equatorial plane. This constellation provides the user with between five and eight SVs visible from any point on the earth.
           </aside>
         </section>
         <section>
-          <h3>Trilateration</h3>
+          <h2>No, really. How does it work?</h2>
+        </section>
+        <section>
+          <h2>Trilateration</h2>
           <aside class="notes">
             Draw out 3 circles
+
+            Requires 4 satellites for a fix.
           </aside>
         </section>
         <section>
@@ -79,9 +111,13 @@
           <h3>Interference Sources</h3>
           <ul>
             <li>Buildings</li>
-            <li>Forests</li>
+            <li>Wet trees</li>
+            <li>Metal</li>
             <li>Solar flares</li>
           </ul>
+          <aside class="notes">
+            GPS signal is pretty weak, doesn't take a lot to block it.
+          </aside>
         </section>
         <section>
           <h2>Where am I?</h2>
@@ -102,6 +138,54 @@
           </section>
           <section>
             <iframe data-src="frames/google_maps.html" width="600" height="400"></iframe>
+          </section>
+        </section>
+        <section>
+          <h3>What do people do with it?</h3>
+        </section>
+        <section>
+          <h3>Make Art</h3>
+          <section>
+            <figure>
+              <img src="assets/images/gps_art_best_artist.jpg">  
+              <figcaption><a href="http://about.mapmyfitness.com/2013/06/route-art-contest-results/">Route Art Contest</a></figcaption>
+            </figure>
+          </section>
+          <section>
+            <figure>
+              <img src="assets/images/gps_art_marry_me.jpg">  
+              <figcaption><a href="http://venturebeat.com/2014/11/17/meet-the-japanese-artist-who-made-the-worlds-largest-gps-drawing-for-his-marriage-proposal/">Largest GPS drawing by an individual</a></figcaption>
+            </figure>
+          </section>
+          <section>
+              <h3><a href="http://www.theatlantic.com/technology/archive/2016/06/gps-goes-adrift/487334/">You Are Here: Information Drift</a></h3>
+              <aside class="notes">
+                Artist in 1994 mounted a GPS to the roof of a gallery and provided a HUD to view location
+                Map the wandering of the GPS receiver. Almost constantly on the move.
+              </aside>
+          </section>
+        </section>
+        <section>
+          <h3>Build amazing things</h3>
+        </section>
+        <section>
+          <h3>Make mistakes</h3>
+          <section>
+            <h3><a href="http://arstechnica.com/cars/2016/05/death-by-gps/">Death by GPS</a></h3>
+          </section>
+          <section>
+            <h3><a href="http://fusion.net/story/287592/internet-mapping-glitch-kansas-farm/">GPS Hell</a></h3>
+            <aside class="notes">
+              MaxMind geoip database had default locations it would return if couldn't identify the location of an IP.
+
+              Default was meant to be the center of the country. Rounded to (38.0000,-97.0000). Turns out this was someones front yard. 
+
+              Database was intended for city/zipcode level location resolution, not individual household. 
+
+              Many people visiting trying to find lost phones, etc.
+
+              Result was move the default away from the farm to the center of a lake.
+            </aside>
           </section>
         </section>
         <section>
@@ -128,15 +212,15 @@
             Some earthquakes, such as those of the Canterbury earthquake sequence starting in 2010, have caused metres of movement.  Where this has happened we have updated the coordinates rather than  simply include the movement in the deformation model.  This is necessary as otherwise the coordinates will not be accurate enough for many applications.  The deformation model still includes the earthquake deformation, but it is applied in reverse to transform coordinates for dates before the earthquake.  
 
             NZGD2000, like the global reference frames, is a geometric datum.  This means that heights are defined above a mathematically defined ellipsoid rather than above sea level. The difference is significant - in the south of New Zealand the ellipsoid is about 5m above sea level, whereas in the north it is about 40m below sea level.  Ellipsoidal heights can be converted to heights above sea level by using a geoid model (eg NZGeoid2016).
+
+            Australia has recently introduced a similar system.
           </aside>
         </section>
         <section>
           <h3>Projections</h3>
-          <ul>
-            <li class="fragment">Mercator</li>
-            <li class="fragment"></li>
-            <li class="fragment"></li>
-          </ul>
+          <aside class="notes">
+            Transformation from a sphere to a plane
+          </aside>
         </section>
         <section>
           <h3>Projection Distortions</h3>
@@ -150,6 +234,51 @@
             Conformality = are the shape of the map features accurate?
             Direction = are the directions between points accurately represented
           </aside>
+        </section>
+        <section>
+          <section>
+            <h3>Mercator</h3>
+            <figure>
+              <img src="assets/images/mercator_projection.jpg">  
+              <figcaption><a href="https://en.wikipedia.org/wiki/Mercator_projection">Mercator (1569)</a></figcaption>
+            </figure>
+            <aside class="notes">
+              Default for many apps
+              Preserves the angles and the shapes of small objects
+              Distorts the size of objects as the latitude increases from the Equator to the poles, where the scale becomes infinite
+            </aside>
+          </section>
+          <section>
+            <h3>Web Mercator</h3>
+            <figure>
+              <img src="assets/images/osm_web_mercator.png">  
+              <figcaption><a href="https://en.wikipedia.org/wiki/Web_Mercator">Web Mercator</a></figcaption>
+            </figure>
+            <aside class="notes">
+              The major online street mapping services tiling systems display most of the world at the lowest zoom level as a single square image, excluding the polar regions by truncation at latitudes of φmax = ±85.05113°. (See below.) Latitude values outside this range are mapped using a different relationship that doesn't diverge at φ = ±90°.
+            </aside>
+          </section>
+          <section>
+            <h3>Cahill's Butterfly</h3>
+            <figure>
+              <img src="assets/images/butterfly_projection.png">  
+              <figcaption><a href="http://www.progonos.com/furuti/MapProj/Normal/ProjPoly/projPoly2.html">Cahill's Butterfly</a></figcaption>
+            </figure>
+          </section>
+          <section>
+            <h3>Van der Grinten's IV</h3>
+            <figure>
+              <img src="assets/images/van_der_grintens_iv_projection.png">  
+              <figcaption><a href="http://www.progonos.com/furuti/MapProj/Normal/ProjOth/projOth.html">Van der Grinten's IV</a></figcaption>
+            </figure>
+          </section>
+          <section>
+            <h3>XKCD</h3>
+            <figure>
+              <iframe data-src="http://imgs.xkcd.com/comics/map_projections.png" width="640" height="600"></iframe>
+              <figcaption><a href="http://www.xkcd.com/977/">XKCD #977</a></figcaption>
+            </figure>
+          </section>
         </section>
         <section>
           <h3>Visualization</h3>
@@ -229,7 +358,7 @@ function drawRegionsMap() {
           </section>
         </section>
         <section>
-          <h3>Terminology</h3>
+          <h3>Online Mapping Features</h3>
           <ul>
             <li>Polyline</li>
             <li>Polygon</li>
@@ -241,7 +370,13 @@ function drawRegionsMap() {
         </section>
         <section>
           <h3>Google Maps V3</h3>
-          <aside class="notes"></aside>
+          <aside class="notes">
+            Can apply styles to the map, change how roads, rivers, etc are coloured.
+
+            iOS and Android SDKs.
+
+            Can be a pain to customise
+          </aside>
         </section>
         <section>
           <h3>Leaflet</h3>
@@ -262,16 +397,6 @@ function drawRegionsMap() {
           </aside>
         </section>
         <section>
-          <h3>Heatmaps</h3>
-          <figure>
-            <img src="assets/images/strava-heatmap.png" height="500">  
-            <figcaption><a href="https://www.strava.com/athletes/10503211/heatmaps/52195bfc#13/-41.30782/174.77381">Strava</a> running heatmap</figcaption>
-          </figure>
-          <aside class="notes">
-            Google Maps has an overlay to display heat maps
-          </aside>
-        </section>
-        <section>
           <h3><a href="https://data.linz.govt.nz/">LINZ</a></h3>
           <ul>
             <li>Topographic maps</li>
@@ -283,7 +408,7 @@ function drawRegionsMap() {
             Live viewing tools
           </notes>
         </section>
-        <section>
+        <!-- <section>
           <h3>Alternatives</h3>
           <ul class="fragment">
             <li>Galileo</li>
@@ -291,6 +416,7 @@ function drawRegionsMap() {
             <li>Beidou</li>
           </ul>
         </section>
+ -->        
         <section>
           <aside class="notes">
             Topics:
@@ -332,6 +458,10 @@ function drawRegionsMap() {
             https://www.maptoaster.com/maptoaster-topo-nz/articles/projection/datum-projection.html
             https://en.wikipedia.org/wiki/Map_projection
             http://techtitude.blogspot.co.nz/2010/10/triangulationtrilateration-in-gps.html
+
+            https://github.com/blog/1528-there-s-a-map-for-that
+
+            https://www.strava.com/athletes/10503211/heatmaps/52195bfc#13/-41.30782/174.77381
           </aside>
         </section>
       </div>
