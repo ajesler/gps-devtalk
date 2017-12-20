@@ -34,14 +34,12 @@
               <figcaption><a href="https://www.strava.com/athletes/10503211/heatmaps/52195bfc#13/-41.30782/174.77381">Strava</a> running heatmap</figcaption>
             </figure>
             <aside class="notes">
-              I think maps a a high impact visualisation tool. Easy to relate to?
+              I think maps a a high impact visualisation tool. Easy to relate to? More context?
             </aside>
           </section>
         </section>
         <section>
           <h2>How does it work?</h2>
-        </section>
-        <section data-background="assets/images/magic.gif" data-background-size="contain">
         </section>
         <section>
           <h3>Satellites</h3>
@@ -66,6 +64,8 @@
 
             The nominal GPS Operational Constellation consists of 24 satellites that orbit the earth in 12 hours. There are often more than 24 operational satellites as new ones are launched to replace older satellites. The satellite orbits repeat almost the same ground track (as the earth turns beneath them) once each day. The orbit altitude is such that the satellites repeat the same track and configuration over any point approximately each 24 hours (4 minutes earlier each day). There are six orbital planes (with nominally four SVs in each), equally spaced (60 degrees apart), and inclined at about fifty-five degrees with respect to the equatorial plane. This constellation provides the user with between five and eight SVs visible from any point on the earth.
           </aside>
+        </section>
+        <section data-background="assets/images/magic.gif" data-background-size="contain">
         </section>
         <section>
           <h2>No, really. How does it work?</h2>
@@ -130,7 +130,7 @@
               <li class="fragment">Latitude (North/South, 90 -90)</li>
               <li class="fragment">Longitude (East/West, 180 -180)</li>
               <li class="fragment">Altitude</li>
-              <li class="fragment">Reference Ellipsoids (WGS 84)</li>
+              <li class="fragment">Geodetic Datum (WGS 84)</li>
             </ul>
             <aside class="notes">
               GPS systems provide a location in terms of latitude, longitude, and height.
@@ -189,13 +189,13 @@
             <section>
               <div height="500">
                 <pre><code>
-  $GPRMC,185609.00,V,,,,,,,180413,,,N*71  
-  $GPGGA,185609.00,,,,,0,00,99.99,,,,,,*65  
-  $GPGSV,1,1,04,08,,,37,09,,,31,17,,,24,28,,,37*74  
+  $GPRMC,185609.00,V,,,,,,,180413,,,N*71
+  $GPGGA,185609.00,,,,,0,00,99.99,,,,,,*65
+  $GPGSV,1,1,04,08,,,37,09,,,31,17,,,24,28,,,37*74
 
   $GPRMC,190314.00,A,4021.29921,S,17536.70998,E,0.524,322.83,180413,,,A*76
-  $GPGGA,190314.00,4021.29921,S,17536.70998,E,1,05,15.41,32.7,M,18.9,M,,*42  
-  $GPGSV,2,1,08,01,30,052,16,03,12,130,,08,81,203,37,09,22,226,28*73  
+  $GPGGA,190314.00,4021.29921,S,17536.70998,E,1,05,15.41,32.7,M,18.9,M,,*42
+  $GPGSV,2,1,08,01,30,052,16,03,12,130,,08,81,203,37,09,22,226,28*73
   $GPGSV,2,2,08,17,15,321,31,19,34,132,,26,25,231,27,28,47,250,18*7F
               </code></pre>
             </div>
@@ -236,7 +236,7 @@
           <h3>Build amazing things</h3>
         </section>
         <section>
-          <h3>Make mistakes</h3>
+          <h3>Unintended Consequences</h3>
           <section></section>
           <section>
             <h3><a href="http://arstechnica.com/cars/2016/05/death-by-gps/">Death by GPS</a></h3>
@@ -502,7 +502,7 @@ function drawRegionsMap() {
 
         <section>
           <aside class="notes">
-            Sources: 
+            Sources:
 
             http://www.colorado.edu/geography/gcraft/notes/gps/gps_f.html
             http://electronics.howstuffworks.com/gadgets/travel/gps1.htm
@@ -556,7 +556,9 @@ function drawRegionsMap() {
           // { src: 'plugin/markdown/marked.js' },
           // { src: 'plugin/markdown/markdown.js' },
           { src: 'plugin/notes/notes.js', async: true },
-          { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+          { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: 'socket.io/socket.io.js', async: true },
+          { src: 'plugin/notes-server/client.js', async: true }
         ]
       });
     </script>
